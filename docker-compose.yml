@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+    mysql_db:
+        image: mysql:8.0
+        container_name: mysql_db
+        restart: always
+        environment:
+            - MYSQL_DATABASE=apiMeli
+            - MYSQL_UESR=root
+            - MYSQL_PASSWORD=311034
+            - MYSQL_ROOT_PASSWORD=311034
+            - MYSQL_HOST=mysql
+        ports:
+            - 3306:3306
+        volumes:
+            - ./mysql:/var/lib/mysql
+        networks:
+            - laravel-project-net
+
+    php:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: php
+        working_dir: /var/www
+        volumes:
+            - ./src:/var/www/html
+            - ./../packages:/usr/packages
+        ports:
+            - 8001:80
+        depends_on:
+            - mysql_db
+        networks:
+            - laravel-project-net
+
+networks:
+    laravel-project-net:
+
+
