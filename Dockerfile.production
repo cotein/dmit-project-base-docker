@@ -8,6 +8,10 @@ RUN apt-get install nano
 
 WORKDIR /var/www/html
 COPY ../dmit-back /var/www/html
+
+RUN cd /usr 
+RUN mkdir afip-certificates
+
 COPY ../dmit-afip-certificates /usr/afip-certificates
 #COPY ./../../packages/cotein/api-afip /var/www/html/packages/cotein/api-afip
 COPY ./apache-config/000-default.conf /etc/apache2/sites-available/
