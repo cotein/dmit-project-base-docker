@@ -7,7 +7,6 @@ RUN docker-php-ext-install pdo pdo_mysql soap exif
 RUN apt-get install nano
 
 WORKDIR /var/www/html
-COPY ../dmit-back /var/www/html
 
 RUN cd /usr 
 RUN mkdir afip-certificates
