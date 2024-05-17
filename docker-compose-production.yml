@@ -29,7 +29,7 @@ services:
             - ./dmit-afip-certificates:/usr/afip-certificates
             #- ./../packages:/usr/packages
         ports:
-            - 80:80
+            - 8000:8000
         depends_on:
             - dmit_mysql_db
         networks:
