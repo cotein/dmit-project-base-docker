@@ -24,6 +24,8 @@ RUN a2enmod rewrite
 ENV NVM_DIR /usr/local/nvm
 ENV NODE_VERSION 16.20.1
 
+RUN mkdir -p $NVM_DIR
+
 RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash \
     && . $NVM_DIR/nvm.sh \
     && nvm install $NODE_VERSION \
