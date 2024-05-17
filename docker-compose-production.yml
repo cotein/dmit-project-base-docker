@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+    dmit_mysql_db:
+        image: mysql:8.0
+        container_name: dmit_mysql_db
+        restart: always
+        environment:
+            - MYSQL_DATABASE=apiMeli
+            - MYSQL_UESR=root
+            - MYSQL_PASSWORD=311034
+            - MYSQL_ROOT_PASSWORD=311034
+            - MYSQL_HOST=mysql
+        ports:
+            - 3306:3306
+        volumes:
+            - ./mysql:/var/lib/mysql
+        networks:
+            - dmit-net
+
+    php:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: php
+        working_dir: /var/www/html
+        volumes:
+            - ../dmit-back:/var/www/html
+            - ../dmit-afip-certificates:/usr/afip-certificates
+            #- ./../packages:/usr/packages
+        ports:
+            - 80:80
+        depends_on:
+            - dmit_mysql_db
+        networks:
+            - dmit-net
+
+networks:
+    dmit-net:
+
+
