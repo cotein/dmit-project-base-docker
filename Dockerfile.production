@@ -11,7 +11,9 @@ WORKDIR /var/www/html
 RUN cd /usr 
 RUN mkdir afip-certificates
 
-COPY ../dmit-afip-certificates /usr/afip-certificates
+COPY ./dmit-afip-certificates /usr/afip-certificates
+COPY ./dmit-back /var/www/html/dmit-back
+COPY ./dmit-front /var/www/html/dmit-front
 #COPY ./../../packages/cotein/api-afip /var/www/html/packages/cotein/api-afip
 COPY ./apache-config-production/000-default.conf /etc/apache2/sites-available/
 #COPY --from=composer:2.3.5 /usr/bin/composer /usr/bin/composer

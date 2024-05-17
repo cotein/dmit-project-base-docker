@@ -24,9 +24,9 @@ services:
         container_name: dmit_php
         working_dir: /var/www/html
         volumes:
-            - ../dmit-back:/var/www/html/dmit-back
-            - ../dmit-front:/var/www/html/dmit-front
-            - ../dmit-afip-certificates:/usr/afip-certificates
+            - ./dmit-back:/var/www/html/dmit-back
+            - ./dmit-front:/var/www/html/dmit-front
+            - ./dmit-afip-certificates:/usr/afip-certificates
             #- ./../packages:/usr/packages
         ports:
             - 80:80
