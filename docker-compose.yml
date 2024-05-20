@@ -1,8 +1,8 @@
 version: '3.8'
 services:
-    mysql_db:
+    dmit_mysql_db:
         image: mysql:8.0
-        container_name: mysql_db
+        container_name: dmit_mysql_db
         restart: always
         environment:
             - MYSQL_DATABASE=dmit-api
@@ -17,11 +17,11 @@ services:
         networks:
             - dmit-net
 
-    php:
+    dmit_php:
         build:
             context: .
             dockerfile: Dockerfile.dev
-        container_name: php
+        container_name: dmit_php
         working_dir: /var/www
         volumes:
             - ./src:/var/www/html
@@ -29,7 +29,7 @@ services:
         ports:
             - 8001:80
         depends_on:
-            - mysql_db
+            - dmit_mysql_db
         networks:
             - dmit-net
 
