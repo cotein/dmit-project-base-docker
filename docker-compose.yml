@@ -5,7 +5,7 @@ services:
         container_name: mysql_db
         restart: always
         environment:
-            - MYSQL_DATABASE=apiMeli
+            - MYSQL_DATABASE=dmit-api
             - MYSQL_UESR=root
             - MYSQL_PASSWORD=311034
             - MYSQL_ROOT_PASSWORD=311034

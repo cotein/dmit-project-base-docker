@@ -5,7 +5,7 @@ services:
         container_name: dmit_mysql_db
         restart: always
         environment:
-            - MYSQL_DATABASE=apiMeli
+            - MYSQL_DATABASE=dmit-api
             - MYSQL_UESR=root
             - MYSQL_PASSWORD=311034
             - MYSQL_ROOT_PASSWORD=311034
@@ -29,7 +29,7 @@ services:
             - ./dmit-afip-certificates:/usr/afip-certificates
             #- ./../packages:/usr/packages
         ports:
-            - 8000:8000
+            - 80:80
         depends_on:
             - dmit_mysql_db
         networks:
