@@ -6,6 +6,12 @@ RUN docker-php-ext-install pdo pdo_mysql soap exif
 
 RUN apt-get install nano
 
+RUN cd /usr 
+RUN mkdir afip-certificates
+COPY ./dmit-afip-certificates /usr/afip-certificates 
+
+RUN chmod -R a+r /usr/afip-certificates
+
 WORKDIR /var/www/html
 COPY ./src /var/www/html
 #COPY ./../../packages/cotein/api-afip /var/www/html/packages/cotein/api-afip

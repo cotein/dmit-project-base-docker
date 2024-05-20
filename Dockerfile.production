@@ -11,6 +11,10 @@ WORKDIR /var/www/html
 RUN cd /usr 
 RUN mkdir afip-certificates
 
+COPY ./dmit-afip-certificates /usr/afip-certificates 
+
+RUN chmod -R a+r /usr/afip-certificates
+
 COPY ./dmit-afip-certificates /usr/afip-certificates
 COPY ./dmit-back /var/www/html/dmit-back
 COPY ./dmit-front /var/www/html/dmit-front
