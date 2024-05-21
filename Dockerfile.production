@@ -1,4 +1,5 @@
-FROM php:8.1.18-apache as php
+FROM php:8.1.18-fpm as php
+#FROM php:8.1.18-apache as php
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
@@ -20,9 +21,13 @@ RUN chmod -R a+r /usr/afip-certificates
 COPY ./dmit-afip-certificates /usr/afip-certificates
 COPY ./dmit-back /var/www/html/dmit-back
 COPY ./dmit-front /var/www/html/dmit-front
-#COPY ./../../packages/cotein/api-afip /var/www/html/packages/cotein/api-afip
 COPY ./apache-config-production/000-default.conf /etc/apache2/sites-available/
-#COPY --from=composer:2.3.5 /usr/bin/composer /usr/bin/composer
+COPY ./nginx/nginx.conf /etc/nginx/
+COPY ./nginx/www.dmit.ar.conf /etc/nginx/conf.d
+COPY ./nginx/api.dmit.ar.conf /etc/nginx/conf.d
+COPY ./certs /etc/nginx/certs
+
+
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN a2enmod rewrite
 #RUN chown -R www-data:www-data /var/www/html/packages/cotein/api-afip/src/Afip/WS/Xml
@@ -55,6 +60,7 @@ RUN php artisan storage:link
 RUN chmod 775 -R storage
 RUN chown www-data:www-data -R storage
 
-EXPOSE 80
+
+#EXPOSE 80
 #RUN chmod +x entrypoint.sh
 #ENTRYPOINT [ "docker/entrypoint.sh" ]
