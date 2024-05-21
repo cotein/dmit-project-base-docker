@@ -48,10 +48,10 @@ RUN cd /var/www/html/dmit-front
 #
 RUN cd /var/www/html/dmit-back
 RUN composer install --no-interaction
-RUN php artisan key:generate
-RUN php artisan migrate
+#RUN php artisan key:generate
+#RUN php artisan migrate
 RUN php artisan storage:link
-RUN php artisan passport:install
+#RUN php artisan passport:install
 RUN chmod 775 -R storage
 RUN chown www-data:www-data -R storage
 

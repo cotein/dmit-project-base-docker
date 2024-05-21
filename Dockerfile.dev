@@ -20,6 +20,14 @@ COPY ./apache-config/000-default.conf /etc/apache2/sites-available/
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN a2enmod rewrite
 #RUN chown -R www-data:www-data /var/www/html/packages/cotein/api-afip/src/Afip/WS/Xml
+RUN composer install --no-interaction
+RUN php artisan key:generate
+#RUN php artisan migrate
+RUN php artisan storage:link
+#RUN php artisan passport:install
+RUN chmod 775 -R storage
+RUN chown www-data:www-data -R storage
+
 ENV PORT=8001
 
 #RUN chmod +x entrypoint.sh
