@@ -6,6 +6,7 @@ WORKDIR /etc/nginx
 # Copy the Nginx configuration files for each site into the image
 #COPY ./nginx/www.dmit.ar.conf /etc/nginx/conf.d/www.dmit.ar.conf
 #COPY ./nginx/api.dmit.ar.conf /etc/nginx/conf.d/api.dmit.ar.conf
+COPY ./nginx/fastcgi_params /etc/nginx/fastcgi_params
 COPY ./nginx/mime.types /etc/nginx/mime.types
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 
