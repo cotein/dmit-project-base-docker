@@ -38,7 +38,7 @@ services:
         image: nginx:latest
         container_name: dmit_nginx
         volumes:
-            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./nginx:/etc/nginx
             - ./certs:/etc/nginx/certs
         ports:
             - 80:80
