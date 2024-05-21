@@ -22,14 +22,6 @@ RUN chmod -R a+r /usr/afip-certificates
 COPY ./dmit-afip-certificates /usr/afip-certificates
 COPY ./dmit-back /var/www/html/dmit-back
 COPY ./dmit-front /var/www/html/dmit-front
-#COPY ./apache-config-production/000-default.conf /etc/apache2/sites-available/
-COPY ./nginx/mime.types /etc/nginx/
-COPY ./nginx/nginx.conf /etc/nginx/
-
-RUN mkdir -p /etc/nginx/conf.d
-COPY ./nginx/www.dmit.ar.conf /etc/nginx/conf.d
-COPY ./nginx/api.dmit.ar.conf /etc/nginx/conf.d
-COPY ./certs /etc/nginx/certs
 
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -65,6 +57,3 @@ RUN chmod 775 -R storage
 RUN chown www-data:www-data -R storage
 
 
-#EXPOSE 80
-#RUN chmod +x entrypoint.sh
-#ENTRYPOINT [ "docker/entrypoint.sh" ]

@@ -18,6 +18,9 @@ services:
             - dmit-net
 
     dmit_nginx:
+        build:
+            context: .
+            dockerfile: Dockerfile.nginx
         image: nginx:latest
         container_name: dmit_nginx
         volumes:
