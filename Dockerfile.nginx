@@ -1,31 +1,20 @@
-FROM nginx:latest as nginx
+# Use the Nginx image from Docker Hub as the base image
+FROM nginx:latest
 
-RUN apt-get update -y 
+WORKDIR /etc/nginx
+RUN mkdir certs
+RUN mkdir conf.d
 
-RUN mkdir -p /etc/nginx/conf.d
+# Copy the Nginx configuration files for each site into the image
+#COPY ./nginx/www.dmit.ar.conf /etc/nginx/conf.d/www.dmit.ar.conf
+#COPY ./nginx/api.dmit.ar.conf /etc/nginx/conf.d/api.dmit.ar.conf
+COPY ./nginx/mime.types /etc/nginx/mime.types
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 
-COPY ./nginx/mime.types /etc/nginx/
-COPY ./nginx/nginx.conf /etc/nginx/
+# Copy the website files for each site into the image
+#COPY ./www.dmit.ar /usr/share/nginx/html/www.dmit.ar
+#COPY ./api.dmit.ar /usr/share/nginx/html/api.dmit.ar
+#COPY ./certs /etc/nginx/certs
 
-COPY ./nginx/www.dmit.ar.conf /etc/nginx/conf.d
-COPY ./nginx/api.dmit.ar.conf /etc/nginx/conf.d
-COPY ./certs /etc/nginx/certs
-
-
-# Instalar nvm con Node.js y npm
-ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 16.20.1
-
-RUN mkdir -p $NVM_DIR
-
-RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash \
-    && . $NVM_DIR/nvm.sh \
-    && nvm install $NODE_VERSION \
-    && nvm alias default $NODE_VERSION \
-    && nvm use default
-
-# Asegurarse de que Node.js y npm estén disponibles globalmente
-ENV NODE_PATH $NVM_DIR/versions/node/v$NODE_VERSION/lib/node_modules
-ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
-
+# Expose ports 80 and 443
 EXPOSE 80 443
