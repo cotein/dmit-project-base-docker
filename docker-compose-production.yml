@@ -17,6 +17,20 @@ services:
         networks:
             - dmit-net
 
+    dmit_nginx:
+        image: nginx:latest
+        container_name: dmit_nginx
+        volumes:
+            - ./nginx:/etc/nginx
+            - ./certs:/etc/nginx/certs
+        ports:
+            - 80:80
+            - 443:443
+        depends_on:
+            - dmit_php
+        networks:
+            - dmit-net
+
     dmit_php:
         build:
             context: .
@@ -31,20 +45,6 @@ services:
             - 9000:9000
         depends_on:
             - dmit_mysql_db
-        networks:
-            - dmit-net
-
-    dmit_nginx:
-        image: nginx:latest
-        container_name: dmit_nginx
-        volumes:
-            - ./nginx:/etc/nginx
-            - ./certs:/etc/nginx/certs
-        ports:
-            - 80:80
-            - 443:443
-        depends_on:
-            - dmit_php
         networks:
             - dmit-net
 
