@@ -2,7 +2,6 @@
 FROM nginx:latest
 
 WORKDIR /etc/nginx
-RUN mkdir conf.d
 
 # Copy the Nginx configuration files for each site into the image
 #COPY ./nginx/www.dmit.ar.conf /etc/nginx/conf.d/www.dmit.ar.conf
