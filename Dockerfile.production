@@ -22,7 +22,8 @@ RUN chmod -R a+r /usr/afip-certificates
 COPY ./dmit-afip-certificates /usr/afip-certificates
 COPY ./dmit-back /var/www/html/dmit-back
 COPY ./dmit-front /var/www/html/dmit-front
-COPY ./apache-config-production/000-default.conf /etc/apache2/sites-available/
+#COPY ./apache-config-production/000-default.conf /etc/apache2/sites-available/
+COPY ./nginx/mime.types /etc/nginx/
 COPY ./nginx/nginx.conf /etc/nginx/
 COPY ./nginx/www.dmit.ar.conf /etc/nginx/conf.d
 COPY ./nginx/api.dmit.ar.conf /etc/nginx/conf.d
