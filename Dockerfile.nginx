@@ -2,7 +2,6 @@
 FROM nginx:latest
 
 WORKDIR /etc/nginx
-RUN mkdir certs
 RUN mkdir conf.d
 
 # Copy the Nginx configuration files for each site into the image
