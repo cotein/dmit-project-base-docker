@@ -25,6 +25,8 @@ COPY ./dmit-front /var/www/html/dmit-front
 #COPY ./apache-config-production/000-default.conf /etc/apache2/sites-available/
 COPY ./nginx/mime.types /etc/nginx/
 COPY ./nginx/nginx.conf /etc/nginx/
+
+RUN mkdir -p /etc/nginx/conf.d
 COPY ./nginx/www.dmit.ar.conf /etc/nginx/conf.d
 COPY ./nginx/api.dmit.ar.conf /etc/nginx/conf.d
 COPY ./certs /etc/nginx/certs
