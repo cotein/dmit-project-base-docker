@@ -39,8 +39,8 @@ RUN mkdir -p /usr/share/nginx/html/dmit-front
 COPY ./dmit-front /usr/share/nginx/html/dmit-front
 
 RUN cd /usr/share/nginx/html/dmit-front
-RUN npm install
+#RUN npm install
 
-RUN npm run build-only
+#RUN npm run build-only
 # Expose ports 80 and 443
 EXPOSE 80 443
