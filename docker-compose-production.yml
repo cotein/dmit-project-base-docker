@@ -27,6 +27,7 @@ services:
             - ./nginx:/etc/nginx
             - ./certs:/etc/nginx/certs
             - ./ssl-certificates:/etc/letsencrypt
+            - ./ssl-certificates-api:/etc/letsencrypt-api
         ports:
             - 80:80
             - 443:443
