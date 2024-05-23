@@ -14,8 +14,6 @@ WORKDIR /var/www/html/dmit-back
 
 RUN cd /usr && mkdir afip-certificates
 
-COPY ./dmit-afip-certificates /usr/afip-certificates 
-
 RUN chmod -R a+r /usr/afip-certificates
 
 COPY ./dmit-afip-certificates /usr/afip-certificates

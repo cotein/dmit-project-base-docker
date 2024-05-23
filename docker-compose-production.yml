@@ -26,6 +26,7 @@ services:
         volumes:
             - ./nginx:/etc/nginx
             - ./certs:/etc/nginx/certs
+            - ./ssl-certificates:/etc/letsencrypt
         ports:
             - 80:80
             - 443:443
