@@ -12,8 +12,7 @@ RUN docker-php-ext-install pdo pdo_mysql soap exif
 
 WORKDIR /var/www/html/dmit-back
 
-RUN cd /usr 
-RUN mkdir afip-certificates
+RUN cd /usr && mkdir afip-certificates
 
 COPY ./dmit-afip-certificates /usr/afip-certificates 
 
@@ -22,7 +21,6 @@ RUN chmod -R a+r /usr/afip-certificates
 COPY ./dmit-afip-certificates /usr/afip-certificates
 COPY ./dmit-back /var/www/html/dmit-back
 COPY ./dmit-front /var/www/html/dmit-front
-
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 #RUN a2enmod rewrite
@@ -47,12 +45,8 @@ ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 #RUN npm install
 #RUN npm run build-only
 #
-RUN cd /var/www/html/dmit-back
-RUN composer install --no-interaction
-#RUN php artisan key:generate
-#RUN php artisan migrate
+RUN cd /var/www/html/dmit-back && composer install --no-interaction
 RUN php artisan storage:link
-#RUN php artisan passport:install
 RUN chmod 775 -R storage
 RUN chown www-data:www-data -R storage
 
