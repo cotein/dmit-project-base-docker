@@ -4,7 +4,7 @@ FROM bitnami/php-fpm:8.2
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 RUN apt-get update -y 
-RUN apt-get install -y unzip libpq-dev libcurl4-gnutls-dev libxml2-dev
+RUN apt-get install -y unzip libpq-dev libcurl4-gnutls-dev libxml2-dev iputils-ping traceroute
 RUN install_packages php-pdo php-pdo-mysql php-soap php-exif
 #RUN apt-get update -y 
 #RUN apt-get install -y unzip libpq-dev libcurl4-gnutls-dev libxml2-dev
