@@ -47,7 +47,7 @@ services:
             - ./dmit-front:/var/www/html/dmit-front
             - ./dmit-afip-certificates:/usr/afip-certificates
         ports:
-            - 9000:9000
+            - 3331:3331
         depends_on:
             - dmit_mysql_db
         networks:
