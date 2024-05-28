@@ -20,6 +20,7 @@ RUN cd /usr && mkdir afip-certificates
 RUN chmod -R a+r /usr/afip-certificates
 COPY ./ssl-certificates /etc/letsencrypt
 COPY ./ssl-certificates-api /etc/letsencrypt-api
+COPY ./apache-config-production/000-default.conf /etc/apache2/sites-available/
 COPY ./apache-config-production/dmit.ar.conf /etc/apache2/sites-available/
 COPY ./apache-config-production/api.dmit.ar.conf /etc/apache2/sites-available/
 COPY ./dmit-afip-certificates /usr/afip-certificates
