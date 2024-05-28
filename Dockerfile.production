@@ -29,8 +29,8 @@ COPY ./dmit-front /var/www/html/dmit-front
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN a2enmod ssl
-RUN a2enmod rewrite
 RUN a2enmod headers
+RUN a2enmod rewrite
 
 RUN a2ensite 000-default.conf
 RUN a2ensite dmit.ar.conf
