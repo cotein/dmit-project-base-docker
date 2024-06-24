@@ -22,8 +22,6 @@ services:
             - HTTPS=ON
             - SSL_CERT=/etc/ssl/certs/fullchain.pem
             - SSL_KEY=/etc/ssl/private/privkey.pem
-        networks:
-            - dmit-net
 
 volumes:
     maildata:
