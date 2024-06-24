@@ -5,6 +5,8 @@ services:
         image: analogic/poste.io
         container_name: dmit_mail
         hostname: mail.dmit.ar
+        restart: always
+        network_mode: "host"
         ports:
             - "25:25"
             - "8080:80"
