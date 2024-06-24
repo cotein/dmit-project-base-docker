@@ -17,8 +17,7 @@ services:
         volumes:
             - maildata:/data
             - maillogs:/var/log
-            - ./letsencrypt/live/www.dmit.ar/fullchain.pem:/etc/ssl/certs/fullchain.pem:ro
-            - ./letsencrypt/live/www.dmit.ar/privkey.pem:/etc/ssl/private/privkey.pem:ro
+            - ./ssl-certificates:/etc/ssl/certs
         environment:
             - HTTPS=ON
             - SSL_CERT=/etc/ssl/certs/fullchain.pem
