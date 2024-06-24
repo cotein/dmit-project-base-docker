@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+    poste:
+        image: analogic/poste.io
+        container_name: dmit_mail
+        hostname: mail.dmit.ar
+        ports:
+            - "25:25"
+            - "80:80"
+            - "443:443"
+            - "110:110"
+            - "143:143"
+            - "993:993"
+            - "995:995"
+            - "4190:4190"
+        volumes:
+            - maildata:/data
+            - maillogs:/var/log
+            - ./letsencrypt/live/www.dmit.ar/fullchain.pem:/etc/ssl/certs/fullchain.pem:ro
+            - ./letsencrypt/live/www.dmit.ar/privkey.pem:/etc/ssl/private/privkey.pem:ro
+        environment:
+            - HTTPS=ON
+            - SSL_CERT=/etc/ssl/certs/fullchain.pem
+            - SSL_KEY=/etc/ssl/private/privkey.pem
+        networks:
+            - dmit-net
+
+networks:
+    dmit-net:
+        external: true
+
+volumes:
+    maildata:
+    maillogs:
