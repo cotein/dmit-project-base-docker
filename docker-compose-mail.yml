@@ -7,15 +7,6 @@ services:
         hostname: mail.dmit.ar
         restart: always
         network_mode: "host"
-        ports:
-            - "25:25"
-            - "8080:80"
-            - "8443:443"
-            - "110:110"
-            - "143:143"
-            - "993:993"
-            - "995:995"
-            - "4190:4190"
         volumes:
             - maildata:/data
             - maillogs:/var/log
