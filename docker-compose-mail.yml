@@ -1,21 +1,27 @@
 version: '3.8'
 
 services:
-    poste:
+
+    mailserver:
         image: analogic/poste.io
         container_name: dmit_mail
-        hostname: mail.dmit.ar
         restart: always
         network_mode: "host"
-        volumes:
-            - maildata:/data
-            - maillogs:/var/log
-            - ./ssl-certificates:/etc/ssl/certs
+        expose:
+            - "25"
+            - "8080"
+            - "4443"
+            - "110"
+            - "143"
+            - "465"
+            - "587"
+            - "993"
+            - "995"
         environment:
-            - HTTPS=ON
-            - SSL_CERT=/etc/ssl/certs/fullchain.pem
-            - SSL_KEY=/etc/ssl/private/privkey.pem
-
-volumes:
-    maildata:
-    maillogs:
+            - TZ=America/New_York
+            - h=mail.dmit.ar # Direccion del servidor de mail hosting
+            - HTTP_PORT=8080
+            - HTTPS_PORT=4443
+            - DISABLE_CLAMAV=TRUE
+        volumes:
+            - /mnt/mail:/data
