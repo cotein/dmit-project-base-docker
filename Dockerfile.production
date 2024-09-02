@@ -9,7 +9,7 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN apt-get update -y 
 RUN apt-get install -y unzip libpq-dev libcurl4-gnutls-dev libxml2-dev nano
 RUN docker-php-ext-install pdo pdo_mysql soap exif
-RUN apt install snapd
+RUN apt-get install snapd
 RUN snap install core; snap refresh core
 RUN snap install --classic certbot
 RUN ln -s /snap/bin/certbot /usr/bin/certbot
