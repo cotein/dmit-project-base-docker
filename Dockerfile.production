@@ -9,11 +9,11 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN apt-get update -y 
 RUN apt-get install -y unzip libpq-dev libcurl4-gnutls-dev libxml2-dev nano 
 RUN docker-php-ext-install pdo pdo_mysql soap exif
-RUN apt install -y snapd
-# Instalar snap y certbot
-RUN snap install core && snap refresh core \
-    && snap install --classic certbot \
-    && ln -s /snap/bin/certbot /usr/bin/certbot
+
+# Agregar el repositorio de Certbot y luego instalar Certbot
+RUN add-apt-repository ppa:certbot/certbot -y \
+    && apt-get update -y \
+    && apt-get install -y certbot
 
 #RUN apt-get update -y 
 #RUN apt-get install nano
