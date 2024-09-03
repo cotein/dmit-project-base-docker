@@ -3,20 +3,17 @@ FROM php:8.1.18-apache as php
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-#RUN apt-get update -y 
-#RUN apt-get install -y unzip libpq-dev libcurl4-gnutls-dev libxml2-dev iputils-ping traceroute
-#RUN install_packages php-pdo php-pdo-mysql php-soap php-exif
-RUN apt-get update -y 
-RUN apt-get install -y unzip libpq-dev libcurl4-gnutls-dev libxml2-dev nano 
+# Actualizar los repositorios e instalar dependencias necesarias
+RUN apt-get update -y \
+    && apt-get install -y unzip libpq-dev libcurl4-gnutls-dev libxml2-dev nano software-properties-common
+
+# Instalar extensiones de PHP
 RUN docker-php-ext-install pdo pdo_mysql soap exif
 
 # Agregar el repositorio de Certbot y luego instalar Certbot
 RUN add-apt-repository ppa:certbot/certbot -y \
     && apt-get update -y \
     && apt-get install -y certbot
-
-#RUN apt-get update -y 
-#RUN apt-get install nano
 
 WORKDIR /var/www/html/dmit-back
 
@@ -40,7 +37,7 @@ RUN a2enmod rewrite
 RUN a2ensite 000-default.conf
 RUN a2ensite dmit.ar.conf
 RUN a2ensite api.dmit.ar.conf
-#RUN chown -R www-data:www-data /var/www/html/packages/cotein/api-afip/src/Afip/WS/Xml
+
 # Instalar nvm con Node.js y npm
 ENV NVM_DIR /usr/local/nvm
 ENV NODE_VERSION 16.20.1
@@ -57,14 +54,9 @@ RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash 
 ENV NODE_PATH $NVM_DIR/versions/node/v$NODE_VERSION/lib/node_modules
 ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
-#RUN cd /var/www/html/dmit-front
-#RUN npm install
-#RUN npm run build-only
-#
 RUN cd /var/www/html/dmit-back && composer install --no-interaction
 RUN php artisan storage:link
 RUN chmod 775 -R storage
 RUN chown www-data:www-data -R storage
 
 EXPOSE 443
-
