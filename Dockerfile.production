@@ -5,15 +5,12 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # Actualizar los repositorios e instalar dependencias necesarias
 RUN apt-get update -y \
-    && apt-get install -y unzip libpq-dev libcurl4-gnutls-dev libxml2-dev nano software-properties-common
+    && apt-get install -y unzip libpq-dev libcurl4-gnutls-dev libxml2-dev nano python3-certbot-apache
 
 # Instalar extensiones de PHP
 RUN docker-php-ext-install pdo pdo_mysql soap exif
 
-# Agregar el repositorio de Certbot y luego instalar Certbot
-RUN add-apt-repository ppa:certbot/certbot -y \
-    && apt-get update -y \
-    && apt-get install -y certbot
+
 
 WORKDIR /var/www/html/dmit-back
 
