@@ -10,8 +10,6 @@ RUN apt-get update -y \
 # Instalar extensiones de PHP
 RUN docker-php-ext-install pdo pdo_mysql soap exif
 
-
-
 WORKDIR /var/www/html/dmit-back
 
 RUN cd /usr && mkdir afip-certificates
@@ -56,4 +54,4 @@ RUN php artisan storage:link
 RUN chmod 775 -R storage
 RUN chown www-data:www-data -R storage
 
-EXPOSE 443 80
+EXPOSE 80 443
