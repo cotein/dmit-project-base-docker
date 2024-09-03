@@ -56,4 +56,4 @@ RUN php artisan storage:link
 RUN chmod 775 -R storage
 RUN chown www-data:www-data -R storage
 
-EXPOSE 443
+EXPOSE 443 80
