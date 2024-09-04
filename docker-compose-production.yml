@@ -66,6 +66,14 @@ services:
             - dmit-net
         entrypoint: /bin/sh -c "trap exit TERM; while :; do certbot renew --standalone; sleep 12h & wait $${!}; done;"
 
+    certbot_create:
+        image: certbot/certbot
+        command: certonly --standalone --email diego.barrueta@gmail.com --agree-tos --no-eff-email -d www.dmit.ar
+        volumes:
+            - ./certbot/conf:/etc/letsencrypt
+            - ./certbot/www:/var/www/certbot
+        networks:
+            - dmit-net
 networks:
     dmit-net:
 
