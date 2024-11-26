@@ -46,8 +46,8 @@ services:
             - ./dmit-back:/var/www/html/dmit-back
             - ./dmit-front:/var/www/html/dmit-front
             - ./dmit-afip-certificates:/usr/afip-certificates
-            #- ./ssl-certificates:/etc/letsencrypt
-            #- ./ssl-certificates-api:/etc/letsencrypt-api
+            - ./ssl-certificates:/etc/letsencrypt
+            - ./ssl-certificates-api:/etc/letsencrypt-api
         ports:
             - 443:443
             - 80:80
