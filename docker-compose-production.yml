@@ -34,7 +34,7 @@ services:
     dmit_api_php:
         build:
             context: .
-            dockerfile: Dockerfile.dev
+            dockerfile: Dockerfile.production
         container_name: dmit_api_php
         volumes:
             - ./src:/var/www/html
