@@ -34,7 +34,7 @@ RUN chmod -R a+rwx /usr/afip-certificates
 
 WORKDIR /var/www/html
 
-COPY ./src /var/www/html
+COPY ./dmit-back /var/www/html
 
 #COPY ./../../packages/cotein/api-afip /var/www/html/packages/cotein/api-afip
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
