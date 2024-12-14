@@ -1,57 +1,57 @@
-FROM php:8.1.18-apache as php
-#FROM bitnami/php-fpm:8.2
+FROM php:8.1-fpm as php
 
-ENV COMPOSER_ALLOW_SUPERUSER=1
+RUN apt-get update -y 
+
+# Instalar las dependencias necesarias
+#RUN apt-get install -y libicu-dev
+
+#RUN apt-get install -y unzip libpq-dev libcurl4-gnutls-dev libxml2-dev
 
 # Actualizar los repositorios e instalar dependencias necesarias
 RUN apt-get update -y \
     && apt-get install -y unzip libpq-dev libcurl4-gnutls-dev libxml2-dev nano software-properties-common python3-certbot-apache gnupg
 
-# Instalar extensiones de PHP
-RUN docker-php-ext-install pdo pdo_mysql soap exif
 
-WORKDIR /var/www/html/dmit-back
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    libxml2-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install pdo pdo_mysql soap exif
+
+RUN apt-get install nano
+
+RUN cd /usr 
 
 RUN cd /usr && mkdir afip-certificates
 
-RUN chmod -R a+r /usr/afip-certificates
-COPY ./ssl-certificates /etc/letsencrypt
-COPY ./ssl-certificates-api /etc/letsencrypt-api
-COPY ./apache-config-production/000-default.conf /etc/apache2/sites-available/
-COPY ./apache-config-production/dmit.ar.conf /etc/apache2/sites-available/
-COPY ./apache-config-production/api.dmit.ar.conf /etc/apache2/sites-available/
 COPY ./dmit-afip-certificates /usr/afip-certificates
-COPY ./dmit-back /var/www/html/dmit-back
-COPY ./dmit-front /var/www/html/dmit-front
 
+RUN chmod -R a+rwx /usr/afip-certificates
+
+WORKDIR /var/www/html
+COPY ./src /var/www/html
+#COPY ./../../packages/cotein/api-afip /var/www/html/packages/cotein/api-afip
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN a2enmod ssl
-RUN a2enmod headers
-RUN a2enmod rewrite
-
-RUN a2ensite 000-default.conf
-RUN a2ensite dmit.ar.conf
-RUN a2ensite api.dmit.ar.conf
-
-# Instalar nvm con Node.js y npm
-ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 16.20.1
-
-RUN mkdir -p $NVM_DIR
-
-RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash \
-    && . $NVM_DIR/nvm.sh \
-    && nvm install $NODE_VERSION \
-    && nvm alias default $NODE_VERSION \
-    && nvm use default
-
-# Asegurarse de que Node.js y npm estén disponibles globalmente
-ENV NODE_PATH $NVM_DIR/versions/node/v$NODE_VERSION/lib/node_modules
-ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
-
-RUN cd /var/www/html/dmit-back && composer install --no-interaction
+#RUN chown -R www-data:www-data /var/www/html/packages/cotein/api-afip/src/Afip/WS/Xml
+RUN composer install --no-interaction
+RUN php artisan key:generate
+#RUN php artisan migrate
 RUN php artisan storage:link
+#RUN php artisan passport:install
 RUN chmod 775 -R storage
 RUN chown www-data:www-data -R storage
 
-EXPOSE 80 443
+#limpiar cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+#ENV PORT=8001
+
+# Exponer el puerto 8001
+#EXPOSE 8001
+CMD ["php-fpm"]
+#RUN chmod +x entrypoint.sh
+#ENTRYPOINT [ "docker/entrypoint.sh" ]
