@@ -10,7 +10,7 @@ services:
             - MYSQL_UESR=root
             - MYSQL_PASSWORD=311034
             - MYSQL_ROOT_PASSWORD=311034
-            - MYSQL_HOST=mysql
+            - MYSQL_HOST=dmit_mysql_db
         ports:
             - 3306:3306
         volumes:
