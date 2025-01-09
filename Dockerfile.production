@@ -44,12 +44,12 @@ RUN php artisan key:generate
 #RUN php artisan migrate
 RUN php artisan storage:link
 #RUN php artisan passport:install
-RUN chmod 775 -R storage
-RUN chown www-data:www-data -R storage
+RUN chmod 775 -Rf storage
+RUN chown www-data:www-data -Rf storage
 
 # Asignar permisos al directorio específico
-RUN chmod -R a+rwx /var/www/html/vendor/cotein/api-afip/src/Afip/WS/Xml/Arba
-RUN chown -R www-data:www-data /var/www/html/vendor/cotein/api-afip/src/Afip/WS/Xml/Arba
+RUN chmod -Rf a+rwx /var/www/html/vendor/cotein/api-afip/src/Afip/WS/Xml/Arba
+RUN chown -Rf www-data:www-data /var/www/html/vendor/cotein/api-afip/src/Afip/WS/Xml/Arba
 
 # Asegurarse de que los archivos dentro del directorio también tengan los permisos correctos
 RUN find /var/www/html/vendor/cotein/api-afip/src/Afip/WS/Xml/Arba -type f -exec chmod 664 {} \;

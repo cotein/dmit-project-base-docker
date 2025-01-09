@@ -38,6 +38,7 @@ services:
         container_name: dmit_api_php
         volumes:
             - ./dmit-back:/var/www/html
+        user: "${UID}:${GID}"
         depends_on:
             - dmit_mysql_db
         networks:
