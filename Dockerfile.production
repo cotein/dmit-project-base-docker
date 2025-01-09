@@ -47,6 +47,10 @@ RUN php artisan storage:link
 RUN chmod 775 -R storage
 RUN chown www-data:www-data -R storage
 
+# Asignar permisos al directorio específico
+RUN chmod -R a+rwx /var/www/html/vendor/cotein/api-afip/src/Afip/WS/Xml/Arba
+RUN chown -R www-data:www-data /var/www/html/vendor/cotein/api-afip/src/Afip/WS/Xml/Arba
+
 #limpiar cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
