@@ -51,6 +51,10 @@ RUN chown www-data:www-data -R storage
 RUN chmod -R a+rwx /var/www/html/vendor/cotein/api-afip/src/Afip/WS/Xml/Arba
 RUN chown -R www-data:www-data /var/www/html/vendor/cotein/api-afip/src/Afip/WS/Xml/Arba
 
+# Asegurarse de que los archivos dentro del directorio también tengan los permisos correctos
+RUN find /var/www/html/vendor/cotein/api-afip/src/Afip/WS/Xml/Arba -type f -exec chmod 664 {} \;
+RUN find /var/www/html/vendor/cotein/api-afip/src/Afip/WS/Xml/Arba -type d -exec chmod 775 {} \;
+
 #limpiar cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
