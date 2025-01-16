@@ -7,7 +7,7 @@ services:
         restart: always
         environment:
             - MYSQL_DATABASE=dmit-api
-            - MYSQL_UESR=root
+            - MYSQL_USER=root
             - MYSQL_PASSWORD=311034
             - MYSQL_ROOT_PASSWORD=311034
             - MYSQL_HOST=dmit_mysql_db
